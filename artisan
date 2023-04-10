@@ -15,6 +15,18 @@ define('LARAVEL_START', microtime(true));
 |
 */
 
+function dbg() {
+    return;
+    echo str_replace('{"file"', "\n{\"file\"", json_encode(debug_backtrace()));
+    echo PHP_EOL;
+    debug_print_backtrace();
+    echo PHP_EOL . PHP_EOL;
+}
+
+function ldbg($msg) {
+    return;
+    var_dump(debug_backtrace()[0]);
+}
 require __DIR__.'/vendor/autoload.php';
 
 $app = require_once __DIR__.'/bootstrap/app.php';

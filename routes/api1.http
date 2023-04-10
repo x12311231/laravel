@@ -1,0 +1,83 @@
+POST http://localhost:8000/api/employees
+Content-Type: application/json
+Accept: application/json
+
+{"full_name":"Test Employee","email":"taken1225@example.com","department_id":"1","job_title":"BE Developer","payment_type":"salary","salary":7500000}
+
+###
+GET http://localhost:8000/api/departments?include=employees
+Accept: application/json
+
+###
+PUT http://localhost:8000/api/departments/9ada531a-916d-4d95-9fd7-44957ed2869c
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "Development11a1",
+    "description": "Updated Description"
+}
+
+###
+GET http://localhost:8000/api/departments/5533ec17-870f-415c-955c-55e245c53ef6
+Accept: application/json
+
+###
+POST http://localhost:8000/api/departments
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Development1",
+    "description": "test department"
+}
+###
+GET http://localhost:8000/api/posts/1
+Accept: application/json
+###
+GET http://localhost:8000/api/departments
+Accept: application/json
+###
+GET http://localhost:8000/api/posts/1?include=author
+Accept: application/json
+###
+GET http://localhost:8000/api/posts/1?include=author,comments
+Accept: application/json
+###
+GET http://localhost:8000/posts/1
+Accept: application/json
+###
+GET http://localhost:8000/posts?include=author,comments
+Accept: application/json
+###
+GET http://localhost:8000/api/user
+Accept: application/json
+###
+GET http://localhost:8000/api/v1/posts/1
+Accept: application/json
+###
+# 通过 views 排序（升序）
+GET http://localhost:8000/api/posts?sort=views
+Accept: application/json
+###
+# 通过 views 排序（升序）
+GET http://localhost:8000/api/posts?filter[title]=test
+Accept: application/json
+###
+# 通过 views 排序（降序）
+GET http://localhost:8000/api/posts?sort=-views
+
+# 筛选 title=laravel 的所有数据
+GET http://localhost:8000/api/posts?filter[title]=laravel
+
+# 通过作者名字进行筛选
+GET http://localhost:8000/api/posts?filter[author.name]=taylor
+
+# 包含指定的关联关系（author、comments）
+GET http://localhost:8000/api/posts?include=author,comments
+
+# posts 资源只返回 title、content 属性
+GET http://localhost:8000/api/posts?fields[posts]=title,content
+
+# 包含 author 关联并且 posts 资源只返回 title、content 字段，author 只返回 name 字段
+GET http://localhost:8000/api/posts?include=author&fields[posts]=title,content&fields[author]=name

@@ -16,6 +16,15 @@ define('LARAVEL_START', microtime(true));
 |
 */
 
+function dbg() {
+    echo str_replace('{"file"', "\n{\"file\"", json_encode(debug_backtrace()));
+    debug_print_backtrace();
+}
+
+function ldbg($msg) {
+    var_dump(debug_backtrace()[0]);
+}
+
 if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
     require $maintenance;
 }

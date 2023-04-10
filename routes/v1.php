@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\EmployeePaycheckController;
-use App\Http\Controllers\PaydayController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -48,26 +45,4 @@ Route::get('posts', function (Request $request) {
 //        ->get();
         ->paginate(10);
     return PostResource::collection($posts);
-})->name('postsss');
-
-Route::apiResource('departments', DepartmentController::class);
-
-Route::apiResource('employees', \App\Http\Controllers\EmployeeController::class);
-
-Route::get('department/{department}/employees', function (\App\Models\Department $department) {
-    $employees = QueryBuilder::for(\App\Models\Employee::class)
-        ->whereBelongsTo($department)
-        ->allowedFilters(['full_name'])
-        ->paginate(10);
-    return \App\Http\Resources\EmployeeResource::collection($employees);
-})->name('department.employees.index');
-
-Route::post(
-    'paycheck',
-    [PaydayController::class, 'store']
-)->name('payday.store');
-
-Route::get(
-    'employees/{employee}/paychecks',
-    [EmployeePaycheckController::class, 'index']
-)->name('employee.paychecks.index');
+});
