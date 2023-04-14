@@ -1,0 +1,26 @@
+models:
+  Article:
+    title: string:400
+    content: longtext
+    views: unsigned integer default:0
+    published_at: nullable timestamp
+    author_id: id:user
+
+controllers:
+  Article:
+    index:
+      query: all
+      render: article.index with:articles
+
+    show:
+      find: article.id
+
+    store:
+      validate: title, content
+      save: article
+      send: ReviewNotification to:article.author with:article
+      dispatch: SyncMedia with:article
+      fire: NewArticle with:article
+      flash: article.title
+      redirect: article.index
+seeders: Article

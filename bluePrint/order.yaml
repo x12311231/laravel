@@ -1,0 +1,26 @@
+models:
+  Order:
+    title: string:400
+    content: longtext
+    views: unsigned integer default:0
+    published_at: nullable timestamp
+    user_id: id:user
+
+controllers:
+  Order:
+    index:
+      query: all
+      render: order.index with:orders
+
+    show:
+      find: order.id
+
+    store:
+      validate: title, content
+      save: order
+      send: SubscribeNotification to:order.user with:order
+      dispatch: SyncMedia with:order
+      fire: NewOrder with:order
+      flash: order.title
+      redirect: order.index
+seeders: Order

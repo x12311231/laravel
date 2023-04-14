@@ -1,0 +1,56 @@
+POST http://{{host}}/article
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 4|apBXydrbH4AoEy3rtv3GYKbt4Drobi7CCFOVMkLn
+
+{"title": "testttt", "content": "ttttttttttttttttttttttttt"}
+
+###
+POST http://{{host}}/api/queue/pushMsg
+Content-Type: application/json
+Accept: application/json
+
+{"msg": "hello world"}
+
+###
+GET http://{{host}}/article/popular
+Accept: application/json
+
+###
+GET http://{{host}}/sanctum/csrf-cookie
+Accept: application/json
+
+###
+POST http://{{host}}/api/sanctum/token
+Content-Type: application/json
+Accept: application/json
+
+{"email": "test@example.com", "password": 123456, "device_name": "ios"}
+
+###
+POST http://{{host}}/api/item
+Content-Type: application/json
+
+{"title": "test", "content": "sdjfadasfak casldflkf jdf"}
+
+###
+GET http://{{host}}/api/user
+Accept: application/json
+Authorization: Bearer 4|apBXydrbH4AoEy3rtv3GYKbt4Drobi7CCFOVMkLn
+
+###
+GET http://localhost:8000/article/1
+Accept: application/json
+
+###
+GET http://localhost:8000/article
+Accept: application/json
+
+###
+GET http://localhost:8000/site_visits
+Accept: application/json
+
+###
+GET http://localhost:8000/redis/connect
+Accept: application/json
+

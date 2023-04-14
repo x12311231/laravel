@@ -1,0 +1,13 @@
+created:
+    - app/Http/Controllers/ArticleController.php
+    - database/factories/ArticleFactory.php
+    - database/migrations/2023_04_11_092207_create_articles_table.php
+    - app/Models/Article.php
+    - database/seeders/ArticleSeeder.php
+    - tests/Feature/Http/Controllers/ArticleControllerTest.php
+updated:
+    - routes/web.php
+skipped:
+    - resources/views/article/index.blade.php
+models:
+    Article: { title: 'string:400', content: longtext, views: 'unsigned integer default:0', published_at: 'nullable timestamp', author_id: 'id:user' }
