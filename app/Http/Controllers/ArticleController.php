@@ -50,6 +50,7 @@ class ArticleController extends Controller
         SyncMedia::dispatch($article);
 
         event(new NewArticle($article));
+//        NewArticle::dispatch($article);
 
         $request->session()->flash('article.title', $article->title);
 

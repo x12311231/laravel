@@ -1,0 +1,27 @@
+models:
+  OrderGoods:
+    goods_name: string:400
+    description: text
+    detail: longtext
+    published_at: nullable timestamp
+    order_id: id:order
+    price: decimal(8, 2)
+
+#controllers:
+#  OrderGoods:
+#    index:
+#      query: all
+#      render: order.index with:orders
+#
+#    show:
+#      find: order.id
+#
+#    store:
+#      validate: title, content
+#      save: order
+#      send: SubscribeNotification to:order.user with:order
+#      dispatch: SyncMedia with:order
+#      fire: NewOrder with:order
+#      flash: order.title
+#      redirect: order.index
+seeders: OrderGoods

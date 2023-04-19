@@ -1,3 +1,83 @@
+GET http://localhost:8000/laravel-websockets/api/owerjf23r4fwfaw/statistics
+Accept: application/json
+
+###
+GET http://{{host}}/api/item?id=99
+Accept: application/json
+
+###
+WEBSOCKET ws://127.0.0.1:6001/app/forijqifjfijifjf?protocol=7&client=js&version=8.0.2&flash=false
+Content-Type: application/json // used only for IDE highlighting.
+// Highlighting is applied for each message independently.
+
+
+#Send when the WebSocket connection is opened
+{
+    "event": "ping"
+}
+=== wait-for-server
+{
+    "event": "ping"
+}
+===
+{
+    "event": "ping"
+}
+
+###
+
+###
+POST http://127.0.0.1:8000/broadcasting/auth
+Content-Type: application/json
+Accept: application/json
+
+{"channel_name": "private-private.article.11", "socket_id": "523679785.846493369"}
+
+###
+POST http://localhost:80/api/item
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="field-name"
+
+field-value
+--WebAppBoundary--
+
+###
+WEBSOCKET ws://localhost:6001
+GET /app/forijqifjfijifjf?protocol=7&client=js&version=8.0.2&flash=false HTTP/1.1
+Host: 127.0.0.1:6001
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/112.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Sec-WebSocket-Version: 13
+Origin: http://localhost:8000
+Sec-WebSocket-Extensions: permessage-deflate
+Sec-WebSocket-Key: uK9PAf6GgBSocV/Mvjnssw==
+Connection: keep-alive, Upgrade
+Sec-Fetch-Dest: websocket
+Sec-Fetch-Mode: websocket
+Sec-Fetch-Site: cross-site
+Pragma: no-cache
+Cache-Control: no-cache
+Upgrade: websocket
+// Highlighting is applied for each message independently.
+
+
+{
+    "message": "Send when the WebSocket connection is opened"
+}
+=== wait-for-server
+{
+    "message": "Wait for the server message and send the current message as response"
+}
+===
+{
+    "message": "Send after previous message without waiting for the server message"
+}
+
+###
 POST http://{{host}}/article
 Content-Type: application/json
 Accept: application/json

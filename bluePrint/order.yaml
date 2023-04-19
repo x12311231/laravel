@@ -1,10 +1,11 @@
 models:
   Order:
-    title: string:400
-    content: longtext
-    views: unsigned integer default:0
+    order_sn: string:400
+    note: string:100
     published_at: nullable timestamp
     user_id: id:user
+    total_price: decimal(10, 2)
+    address: string:400
 
 controllers:
   Order:
