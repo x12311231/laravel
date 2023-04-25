@@ -2,6 +2,9 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\ConcurrencyRateLimiter;
+use App\Http\Middleware\DurationRateLimiter;
+use App\Http\Middleware\RateLimiter;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -40,7 +43,10 @@ class Kernel extends HttpKernel
 
         'api' => [
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
+//            \Illuminate\Routing\Middleware\ThrottleRequests::class.':3,1',
+            ConcurrencyRateLimiter::class,
+//            DurationRateLimiter::class,
+//            RateLimiter::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];

@@ -1,0 +1,10 @@
+GET http://{{host}}/api/rateTest
+Accept: application/json
+
+###
+GET http://{{host}}/api/user
+Accept: application/json
+
+###
+GET http://{{host}}/api/rateTest1
+Accept: application/json
