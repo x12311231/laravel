@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/post/{id}', [\App\Http\Controllers\PostController::class, 'show'])->middleware([\App\Http\Middleware\PostView::class]);
+Route::get('/post1/{id}', [\App\Http\Controllers\PostController::class, 'show'])->middleware([\App\Http\Middleware\PostView1::class]);

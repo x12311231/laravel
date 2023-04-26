@@ -1,0 +1,4 @@
+GET http://{{host}}/post/1?userId=99
+Accept: application/json
+
+###
