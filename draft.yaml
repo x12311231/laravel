@@ -1,0 +1,34 @@
+models:
+  Post:
+    title: string:400
+    content: longtext
+    published_at: nullable timestamp
+    author_id: id:user
+    image_id: id:image
+
+  Image:
+    name: string:400
+    path: string:400
+    url: string:400
+    user_id: id:user
+
+controllers:
+  Post:
+    create:
+      render: post.create
+
+    show:
+      render: post.show with:post
+
+    index:
+      query: all
+      render: post.index with:posts
+
+    store:
+      validate: title, content, author_id
+      save: post
+      send: ReviewPost to:post.author.email with:post
+      dispatch: SyncMedia with:post
+      fire: NewPost with:post
+      flash: post.title
+      redirect: post.index
