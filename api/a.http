@@ -1,0 +1,7 @@
+POST http://{{host}}/post
+Content-Type: application/json
+Accept: application/json
+
+{}
+
+###
