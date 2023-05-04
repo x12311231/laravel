@@ -30,3 +30,8 @@ Route::post('job/dispatch', function (Request $request) {
 })->name('api.job.1');
 
 Route::post('job/a1', [\App\Http\Controllers\JobController::class, 'test'])->name('api.job.2');
+
+Route::post('notification/1', function (Request $request) {
+    \Illuminate\Support\Facades\Notification::send($request->user(), new \App\Notifications\TestNotification());
+    return 'ok';
+})->name('api.n.1');

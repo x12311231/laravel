@@ -30,4 +30,15 @@ class MailTest extends TestCase
         $response->assertStatus(200);
         $response->assertContent('ok');
     }
+
+    public function test_notice()
+    {
+        $this->actingAs(User::factory([
+            'name' => '123456',
+            'email' => '1434970057@qq.com',
+        ])->create());
+        $response = $this->post(route('api.n.1'));
+        $response->assertOk();
+        $response->assertContent('ok');
+    }
 }

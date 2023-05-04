@@ -15,12 +15,15 @@ class TestJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+//    public string $s;
     /**
      * Create a new job instance.
      */
-    public function __construct(public string $s)
+    public function __construct(
+//        $s
+    )
     {
-        //
+//        $this->s = $s;
     }
 
     /**
@@ -29,6 +32,7 @@ class TestJob implements ShouldQueue
     public function handle(): void
     {
         //
-        Log::debug(__CLASS__ . ':' . __FUNCTION__ . '-' . $this->s);
+        Log::debug(__CLASS__ . ':' . __FUNCTION__ . '-');
+//        Log::debug(__CLASS__ . ':' . __FUNCTION__ . '-' . $this->s);
     }
 }
