@@ -17,3 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::put('session/{value}', function (Request $request, string $value) {
+    \Illuminate\Support\Facades\Session::put('testSession_' . $value, $value);
+    return \Illuminate\Support\Facades\Session::get('testSession_' . $value);
+})->name('api.session.put.1');
+
+Route::get('session/{value}', function (Request $request, string $value) {
+    return session('testSession_' . $value);
+})->name('api.session.get.1');

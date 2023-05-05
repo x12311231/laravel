@@ -1,0 +1,11 @@
+GET http://{{host}}/api/session/1
+Accept: application/json
+
+###
+PUT http://{{host}}/api/session/1
+Content-Type: application/json
+Accept: application/json
+
+{}
+
+###
