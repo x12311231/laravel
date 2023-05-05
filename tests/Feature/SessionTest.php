@@ -8,6 +8,7 @@ use Tests\TestCase;
 
 class SessionTest extends TestCase
 {
+
     protected $cookie = 'abcc123123';
 
     protected $cookie1 = '';
@@ -34,6 +35,10 @@ class SessionTest extends TestCase
 
     public function test_api_route_session_put()
     {
+        $response = $this->put(route('api.session.put.1', ['value' => 11]));
+        $response->assertContent("11");
+        $cookie = $response->getCookie('laravel_session', false);
+        $this->cookie1 = $cookie;
         $response = $this->put(route('api.session.put.1', ['value' => 1]));
         $response->assertContent("1");
         $cookie = $response->getCookie('laravel_session', false);
@@ -42,9 +47,15 @@ class SessionTest extends TestCase
 
     }
 
+
     public function test_api_route_session_get()
     {
         $response = $this->withCookie('laravel_session', $this->cookie1)->get(route('api.session.get.1', ['value' => 100]));
+        $response->assertContent("100");
+    }
+    public function test_api_route_session_get1()
+    {
+        $response = $this->get(route('api.session.get.1', ['value' => 100]));
         $response->assertContent("100");
     }
 
