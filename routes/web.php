@@ -16,3 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/ok', function () {
+    return 'ok';
+})->middleware('auth');
+
+Route::get('/auth/login/{user}', [\App\Http\Controllers\AuthController::class, 'login']);
+Route::get('/auth/welcome', [\App\Http\Controllers\AuthController::class, 'welcome'])->middleware('auth')->name('auth.welcome');
+
+Route::post('/order/store', [\App\Http\Controllers\OrderController::class, 'store'])->middleware('auth')->name('order.store');
+Route::put('/order/{order}/pay', [\App\Http\Controllers\OrderController::class, 'pay'])->middleware('auth')->name('order.pay');

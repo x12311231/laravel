@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/job/failed', function () {
+    \App\Jobs\FailedJob::dispatch()->delay(now()->addSeconds(5))->onQueue('jobFail');
+});
