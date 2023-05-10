@@ -8,16 +8,19 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class ReleaseJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public int $tries = 2;
+    public int $tries = 3;
     /**
      * Create a new job instance.
      */
-    public function __construct()
+    public function __construct(
+        public readonly string $title
+    )
     {
         //
     }
@@ -27,6 +30,7 @@ class ReleaseJob implements ShouldQueue
      */
     public function handle(): void
     {
-        $this->release(0);
+        Log::debug('release:' . $this->title . ' attempts:' . $this->attempts());
+        $this->release(2 * $this->attempts());
     }
 }

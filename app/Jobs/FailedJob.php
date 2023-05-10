@@ -14,12 +14,14 @@ class FailedJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public int $tries = 2;
+    public int $tries = 3;
     public int $timeout = 500;
     /**
      * Create a new job instance.
      */
-    public function __construct()
+    public function __construct(
+        public readonly string $title
+    )
     {
         //
     }
@@ -29,7 +31,7 @@ class FailedJob implements ShouldQueue
      */
     public function handle(): void
     {
-        Log::debug('test fail trigger');
-        $this->fail("test fail trigger");
+        Log::debug('test fail trigger:' . $this->title);
+        $this->fail("test fail trigger" . $this->title);
     }
 }
