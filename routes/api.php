@@ -19,5 +19,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/job/failed', function () {
-    \App\Jobs\FailedJob::dispatch()->delay(now()->addSeconds(5))->onQueue('jobFail');
-});
+    \App\Jobs\FailedJob::dispatch()->delay(now()->addSeconds(5))->onQueue('job');
+    return 'ok';
+})->name('job.failed');
+Route::get('/job/exception', function () {
+    \App\Jobs\ExceptionJob::dispatch()->delay(now()->addSeconds(5))->onQueue('job');
+    return 'ok';
+})->name('job.exception');
+Route::get('/job/release', function () {
+    \App\Jobs\ReleaseJob::dispatch()->delay(now()->addSeconds(0))->onQueue('job');
+    \App\Jobs\ReleaseJob::dispatch()->delay(now()->addSeconds(0))->onQueue('job');
+    return 'ok';
+})->name('job.release');

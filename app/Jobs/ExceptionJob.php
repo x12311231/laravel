@@ -10,9 +10,10 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class FailedJob implements ShouldQueue
+class ExceptionJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
 
     public int $tries = 2;
     public int $timeout = 500;
@@ -29,7 +30,7 @@ class FailedJob implements ShouldQueue
      */
     public function handle(): void
     {
-        Log::debug('test fail trigger');
-        $this->fail("test fail trigger");
+        Log::debug('test exception trigger');
+        throw new \Exception("test Exception trigger");
     }
 }

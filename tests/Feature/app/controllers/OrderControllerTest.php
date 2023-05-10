@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\app\controllers;
 
+use App\Jobs\CancelUnPayOrder;
 use App\Models\Order;
 use App\Models\User;
 use App\Notifications\BeforeCanceledOrder;
@@ -28,9 +29,9 @@ class OrderControllerTest extends TestCase
     public function test_store()
     {
         \Illuminate\Support\Facades\Notification::fake();
-        \Illuminate\Support\Facades\Queue::fake([
-            BeforeCanceledOrder::class,
-        ]);
+//        \Illuminate\Support\Facades\Queue::fake([
+//            CancelUnPayOrder::class,
+//        ]);
         Notification::assertNothingSent();
         Carbon::setTestNow(now()->subMinutes(1));
         echo 'now:' . now();
@@ -42,8 +43,10 @@ class OrderControllerTest extends TestCase
         $countOrder = Order::count();
         $response = $this->post(route('order.store'), ['Accept' => 'application/json']);
 //        \Illuminate\Support\Facades\Queue::pushedJobs();
+//        \Illuminate\Support\Facades\Queue::pushed(CancelUnPayOrder::class);
+//        \Illuminate\Support\Facades\Queue::pop();
+//        \Illuminate\Support\Facades\Queue::assertPushed(CancelUnPayOrder::class, 1);
         Notification::assertSentTo([$user], BeforeCanceledOrder::class);
-//        \Illuminate\Support\Facades\Queue::assertPushed(BeforeCanceledOrder::class, 1);
 //        \Illuminate\Support\Facades\Queue::assertPushedOn('order', BeforeCanceledOrder::class);
         $this->assertDatabaseCount(Order::class, 1 + $countOrder);
         $response->assertOk();
