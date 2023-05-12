@@ -82,4 +82,10 @@ class JobTest extends TestCase
         $response = $this->get(route('job.retryUntil', ['title' => now()]));
         $response->assertOk();
     }
+
+    public function test_retry()
+    {
+        $response = $this->get(route('job.retry', ['title' => now()]));
+        $response->assertOk();
+    }
 }

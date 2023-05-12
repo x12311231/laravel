@@ -48,4 +48,11 @@ Route::get('/job/retryUntil/{title}', function (string $title) {
     \App\Jobs\RetryUntil::dispatch($title)->delay(now()->addSeconds(0))->onQueue('job');
     return 'ok';
 })->name('job.retryUntil');
+Route::get('/job/retry/{title}', function (string $title) {
+    \App\Jobs\Retry::dispatch($title)->onQueue('job')->onConnection('redis_retry9_connect');
+})->name('job.retry');
 
+Route::get('/redis/conn', [\App\Http\Controllers\RedisController::class, 'getConnection'])->name('redis.conn');
+Route::get('/redis/lua1', [\App\Http\Controllers\RedisController::class, 'lua1'])->name('redis.lua1');
+Route::get('/redis/lua2/{argv}', [\App\Http\Controllers\RedisController::class, 'lua2'])->name('redis.lua2');
+Route::get('/redis/lua_zadd', [\App\Http\Controllers\RedisController::class, 'lua_zadd'])->name('redis.luaZadd');
