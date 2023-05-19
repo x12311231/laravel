@@ -1,0 +1,37 @@
+POST http://{{host}}/api/batchJob
+Content-Type: application/json
+Accept: application/json
+
+{
+    "limit": 1
+}
+
+###
+POST http://{{host}}/api/batchJobConcurrently
+Content-Type: application/json
+Accept: application/json
+
+{
+    "limit": 1
+}
+
+###
+POST http://{{host}}/api/batchJobRateLimit
+Content-Type: application/json
+Accept: application/json
+
+{
+    "limit": 1
+}
+
+###
+
+POST http://{{host}}/api/batchJobRateLimitViaMiddleware
+Content-Type: application/json
+Accept: application/json
+
+{
+    "limit": 1
+}
+
+###
