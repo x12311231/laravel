@@ -1,0 +1,13 @@
+GET http://{{host}}/api/job/supervisor
+Accept: application/json
+
+###
+GET http://{{host}}/api/job/supervisorBatch
+Accept: application/json
+
+###
+
+GET http://{{host}}/api/job/extra
+Accept: application/json
+
+###
