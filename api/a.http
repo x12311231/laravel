@@ -1,0 +1,13 @@
+POST http://localhost:8000/post
+Content-Type: application/json
+Accept: application/json
+
+{"title":"Est commodi possimus ipsa reprehenderit.","content":"Voluptate atque maxime atque et aut quidem consectetur dolor. Eos dolorem sunt tempora similique rerum et voluptas pariatur. Laboriosam est deserunt ea deserunt iure omnis rerum. Illo quia maxime maxime recusandae.\n\nSit maxime quo inventore eligendi quas officiis. Exercitationem natus aut voluptates non. Qui soluta laboriosam omnis officiis velit enim mollitia. Recusandae ut aut ducimus et explicabo.\n\nTotam explicabo minima suscipit sed quis. Similique enim impedit error ut debitis. Suscipit sit maiores tempora.","status":"draft","author_id":2}
+
+###
+POST http://localhost:8000/post
+Content-Type: application/x-www-form-urlencoded
+
+title=Aut+voluptatem+blanditiis+voluptatem+qui.&content=Quam+quia+nihil+molestiae+rerum+et.+Magnam+quo+id+temporibus+voluptatem+odio.%0A%0AProvident+quo+repellat+quas+ut+eveniet+tempora+et+inventore.+Incidunt+cupiditate+mollitia+tenetur+cupiditate.%0A%0AMolestiae+nostrum+distinctio+velit+voluptas+eveniet+dolorem.+Consequuntur+molestiae+enim+similique+neque+sed+in+quo.+Accusantium+velit+molestias+culpa+quam.+Totam+rerum+quaerat+voluptates+et+totam+quidem+deleniti.&status=draft&author_id=2
+
+###

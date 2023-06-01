@@ -1,0 +1,12 @@
+created:
+    - app/Http/Controllers/PostController.php
+    - database/factories/PostFactory.php
+    - database/migrations/2023_06_01_074452_create_posts_table.php
+    - app/Models/Post.php
+    - tests/Feature/Http/Controllers/PostControllerTest.php
+updated:
+    - routes/web.php
+skipped:
+    - resources/views/post/index.blade.php
+models:
+    Post: { title: 'string:400', content: longtext, status: 'enum:draft,deleted,published', tags: json, published_at: 'nullable timestamp', author_id: 'id:user' }
