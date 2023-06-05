@@ -16,3 +16,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/job/{rollback}', function (string $rollback) {
+    \Illuminate\Support\Facades\DB::transaction(function () use ($rollback) {
+        \App\Models\User::factory()->create();
+        if ('true' == $rollback) {
+            \Illuminate\Support\Facades\Log::channel('syslog')
+                ->debug('job exception happen');
+            throw new \Exception("some err");
+        }
+        // 开启afterCommit后，应把队列任务置于最后（异常后）
+        \App\Jobs\Test::dispatch()->onQueue('default')->afterCommit();
+    });
+})->name('job.1');
+
+Route::resource('post', App\Http\Controllers\PostController::class);
