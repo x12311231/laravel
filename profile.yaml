@@ -1,0 +1,13 @@
+models:
+  Profile:
+    site: string:400
+    belief: longtext
+    age: integer
+    phone: phone
+    wechat: string
+    deleted_at: nullable timestamp
+    user_id: id:user
+
+controllers:
+  Profile:
+    resource

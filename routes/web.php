@@ -16,3 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+
+
+
+Route::resource('post', App\Http\Controllers\PostController::class);
+
+
+Route::resource('profile', App\Http\Controllers\ProfileController::class);
