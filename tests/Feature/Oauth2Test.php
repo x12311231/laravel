@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class Oauth2Test extends TestCase
@@ -31,9 +32,13 @@ class Oauth2Test extends TestCase
 
     public function test_oauth_client_post()
     {
-        $user = User::firstOr(function () {
-            return User::factory()->create();
-        });
+//        $user = User::firstOr(function () {
+//            return User::factory()->create();
+//        });
+        $user = User::factory()->create([
+            'name' => 'oauth' . rand(0, 100),
+            'password' => Hash::make('12345678'),
+        ]);
         $this->actingAs($user);
         $testResponse = $this->post('/oauth/clients', [
             'name' => 'test_' . now()->toString(),

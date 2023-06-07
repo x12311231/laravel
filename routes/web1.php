@@ -17,7 +17,7 @@ Route::get('/redirect', function (Request $request) {
                 'state' => $state,
                 // 'prompt' => '', // "none", "consent", or "login"
     ]);
-    $sourceHost = "http://localhost:8000";
+    $sourceHost = "http://localhost:8001";
     return redirect($sourceHost . '/oauth/authorize?'.$query);
  });
 
@@ -30,8 +30,8 @@ Route::get('/callback', function (Request $request) {
         'Invalid state value.'
             );
 
-    $sourceHost = "http://localhost:8000";
-    $response = Http::asForm()->post($sourceHost . '/passport-app.test/oauth/token', [
+    $sourceHost = "http://localhost:8001";
+    $response = Http::asForm()->post($sourceHost . '/oauth/token', [
         'grant_type' => 'authorization_code',
         'client_id' => '4',
         'client_secret' => 'ahi3EDNsXbWbGCWzMVacNf4FANvJ1b441hMpN75A',
