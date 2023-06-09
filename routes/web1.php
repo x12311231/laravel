@@ -32,6 +32,7 @@ Route::get('/callback', function (Request $request) {
 
     $sourceHost = "http://localhost:8001";
     $response = Http::asForm()->post($sourceHost . '/oauth/token', [
+//        'grant_type' => 'client_credentials',
         'grant_type' => 'authorization_code',
         'client_id' => '4',
         'client_secret' => 'ahi3EDNsXbWbGCWzMVacNf4FANvJ1b441hMpN75A',
@@ -42,3 +43,9 @@ Route::get('/callback', function (Request $request) {
 
         return $response->json();
 });
+
+//Route::prefix('/oauth2')->group(function () {
+//    Route::get('/user', function (Request $request) {
+//        return $request->user();
+//    })->middleware('client');
+//});//->middleware('auth');
