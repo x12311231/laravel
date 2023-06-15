@@ -1,12 +1,17 @@
-GET http://{{host}}/user/two-factor-qr-code
+GET http://{{host}}/api/user
 Accept: application/json
-Cookie: laravel_session=eyJpdiI6IjdHTkd5enJaT2FYc0VlTE9CdnpzMXc9PSIsInZhbHVlIjoibTREQWcwSm54QzdrWnVCbFA3cVdWaEp1dnZzYmVUSDU3VVpQT0JCU3dUVzEwYzdHdTc4NEgvTzhsYnVtK2gzZitERjlYMkt6b3hVOUNDSElld3QvaW5wRmhpOENZMzBWK3l4QUVhTEhrZUhIS0dWcjA5ZjZHK0pwTGdCZHJ5Y3IiLCJtYWMiOiJkYTk0Y2IwZjE2ZDJiNDY0MTZhZmM1NDY4NmEyZDk3YWRjODRjMjg0ZTkxZDc3MTZmOTk4MWFjMjdjMzAyOGViIiwidGFnIjoiIn0%3D
+Authorization: Bearer 7MgUa08w4bDzH9hYnyFrwV1Q5QPchluZsc9NqYRr
 
 ###
-POST http://localhost:80/api/item
-Content-Type: application/json
+GET http://{{host}}/user/two-factor-qr-code
+Accept: application/json
 
-{}
+###
+POST http://{{host}}/api/token
+Content-Type: application/json
+Accept: application/json
+
+{"email": "test1@qq.com", "password": "12345678"}
 
 ###
 POST http://{{host}}/login
