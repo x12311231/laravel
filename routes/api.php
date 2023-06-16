@@ -31,4 +31,4 @@ Route::post('/token', function (Request $request) {
         throw new \Illuminate\Auth\AuthenticationException();
     }
     return $user->createToken('user_' . $user->email);
-});
+})->name('token');

@@ -1,3 +1,7 @@
+GET http://{{host}}/csrfToken
+Accept: application/json
+
+###
 GET http://{{host}}/api/user
 Accept: application/json
 Authorization: Bearer 7MgUa08w4bDzH9hYnyFrwV1Q5QPchluZsc9NqYRr
@@ -17,6 +21,7 @@ Accept: application/json
 POST http://{{host}}/login
 Content-Type: application/json
 Accept: application/json
+X-CSRF-TOKEN: L3kNQ451EZSmISxfcnAXUAvyXcAGqNVw1XvpMk9D
 
 {"email": "test1@qq.com", "password": "12345678"}
 
