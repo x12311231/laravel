@@ -35,7 +35,7 @@
                 @if (session('status') == 'two-factor-authentication-enabled')
             <form class="space-y-6" action="{{ route('profile.update') }}" method="POST">
                 @else
-                    <form class="space-y-6" action="{{ url('/user/two-factor-authentication') }}" method="POST">
+            <form class="space-y-6" action="{{ url('/user/two-factor-authentication') }}" method="POST">
                 @endif
                 @csrf
                 <div>
