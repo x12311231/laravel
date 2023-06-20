@@ -60,7 +60,7 @@ class ProfileController extends Controller
 
 //        $request->session()->flash('profile.id', $profile->id);
 
-        Session::remove('status');
+//        Session::remove('status');
         return redirect()->route('profile.edit');
 
     }
