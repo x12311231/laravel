@@ -1,0 +1,16 @@
+created:
+    - app/Http/Controllers/ProfileController.php
+    - database/factories/ProfileFactory.php
+    - database/migrations/2023_06_20_072224_create_profiles_table.php
+    - app/Models/Profile.php
+    - tests/Feature/Http/Controllers/ProfileControllerTest.php
+    - app/Http/Requests/ProfileStoreRequest.php
+    - app/Http/Requests/ProfileUpdateRequest.php
+    - resources/views/profile/index.blade.php
+    - resources/views/profile/create.blade.php
+    - resources/views/profile/show.blade.php
+    - resources/views/profile/edit.blade.php
+updated:
+    - routes/web.php
+models:
+    Profile: { webSite: 'string:400', sex: 'enum male,female', user_id: 'id:user' }

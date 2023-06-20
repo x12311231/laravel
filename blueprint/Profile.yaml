@@ -1,0 +1,9 @@
+models:
+  Profile:
+    webSite: string:400
+    sex: enum:male,female
+    user_id: id:user
+
+controllers:
+  Profile:
+    resource

@@ -15,6 +15,15 @@ Route::get('/tailcss', function () {
     return view('tailcss');
 });
 
-Route::get('/home', function () {
-    return view('home');
-})->name('home');
+Route::middleware([config('fortify.auth_middleware', 'auth').':'.config('fortify.guard')])->group(function () {
+    Route::get('/home', function (Request $request) {
+        return view('home', ['user' => $request->user()]);
+    })->name('home');
+    Route::get('fortify/safety', function () {
+        return view('auth.safety');
+    })->name('auth.two-factor-authentication');
+//    Route::resource('profile', App\Http\Controllers\ProfileController::class);
+    Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+});
+

@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:title>
-        Home
+        Safety
     </x-slot:title>
     <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
         <x-sitebar></x-sitebar>
@@ -13,8 +13,14 @@
             </div>
 
             <div class="mt-16">
+
+                @if (session('status') == 'two-factor-authentication-enabled')
+                    <div class="mb-4 font-medium text-sm">
+                        Please finish configuring two factor authentication below.
+                    </div>
+                @endif
                 <div class="grid grid-cols-2 md:grid-cols-2 gap-6 lg:gap-8">
-                    <div class="text-white">{{ json_encode($user) }}</div>
+                    <div class="text-white">safety</div>
                 </div>
             </div>
 
