@@ -51,9 +51,9 @@ class FortifyTest extends TestCase
             self::assertNotEquals('...', $message);
         }
         $testResponse = $this->post('/login', ['email' => $user->email, 'password' => '123456789'], ['Accept' => 'application/json']);
-
-        $message = $testResponse->json('message');
-        self::assertEquals('Too Many Attempts.', $message);
+        $testResponse->assertTooManyRequests();
+//        $message = $testResponse->json('message');
+//        self::assertEquals('Too Many Attempts.', $message);
     }
 
     public function test_register()
@@ -68,6 +68,112 @@ class FortifyTest extends TestCase
     {
         $this->actingAs(User::factory()->create());
         $testResponse = $this->get(route('two-factor.login'));
+        $testResponse->assertOk();
+    }
+
+    public function test_confirmPassword()
+    {
+        $user = User::factory()->create(['password' => Hash::make('12345678')]);
+        $this->actingAs($user);
+        $testResponse = $this->get(url('/user/confirm-password'), ['Accept' => 'application/json']);
+        $testResponse->assertOk();
+    }
+
+    public function test_confirmationPassword()
+    {
+        $user = User::factory()->create(['password' => Hash::make('12345678')]);
+        $this->actingAs($user);
+        $testResponse = $this->get(route('password.confirmation'));
+        $testResponse->assertOk();
+        $json = $testResponse->json('confirmed');
+        self::assertFalse($json);
+    }
+
+    public function test_confirmPasswordPost()
+    {
+        $user = User::factory()->create(['password' => Hash::make('12345678')]);
+        $this->actingAs($user);
+
+        $testResponse = $this->post(url('/user/confirm-password'),['password' => '12345678'], ['Accept' => 'application/json']);
+        $testResponse->assertCreated();
+        $testResponse->assertSessionMissing('asdjfksdfj');
+        $testResponse->assertSessionHas('auth.password_confirmed_at');
+        $testResponse = $this->get(route('password.confirmation'));
+        $testResponse->assertOk();
+        $json = $testResponse->json('confirmed');
+        self::assertTrue($json);
+    }
+
+
+    public function test_twoFactorRecoveryCodes()
+    {
+        $user = User::factory()->create(['password' => Hash::make('12345678')]);
+        $this->actingAs($user);
+
+        $testResponse = $this->post(url('/user/confirm-password'),['password' => '12345678'], ['Accept' => 'application/json']);
+        $testResponse->assertCreated();
+        $testResponse->assertSessionMissing('asdjfksdfj');
+        $testResponse->assertSessionHas('auth.password_confirmed_at');
+
+        $testResponse1 = $this->post(route('two-factor.enable'), [], ['Referer' => url('/home')]);
+        $testResponse1->assertRedirect(url('/home'));
+        $testResponse1 = $this->post(url('user/two-factor-recovery-codes'), [], ['Referer' => route('two-factor.recovery-codes')]);
+        $testResponse1->assertRedirect(route('two-factor.recovery-codes'));
+        $testResponse = $this->get(route('two-factor.recovery-codes'), ['Accept' => 'application/json']);
+        $testResponse->assertOk();
+//        $testResponse->assertJ
+    }
+
+
+    public function test_twoFactorChallege()
+    {
+        $testResponse = $this->get(route('two-factor.login'));
+//        $testResponse->assertRedirect();
+        $testResponse->assertRedirect('/login');
+        $this->actingAs(User::firstOr(function () {
+            return User::factory()->create();
+        }));
+        $testResponse = $this->get(route('two-factor.login'));
+//        $testResponse->assertRedirect();
+        $testResponse->assertRedirect('/home');
+    }
+
+    public function test_twoFactorChallegePost()
+    {
+        $user = User::factory()->create(['password' => Hash::make('12345678')]);
+        $this->actingAs($user);
+
+        $testResponse = $this->post(url('/user/confirm-password'),['password' => '12345678'], ['Accept' => 'application/json']);
+        $testResponse->assertCreated();
+        $testResponse->assertSessionMissing('asdjfksdfj');
+        $testResponse->assertSessionHas('auth.password_confirmed_at');
+
+        $testResponse1 = $this->post(route('two-factor.enable'), [], ['Referer' => url('/home')]);
+        $testResponse1->assertRedirect(url('/home'));
+        $testResponse1 = $this->post(url('user/two-factor-recovery-codes'), [], ['Referer' => route('two-factor.recovery-codes')]);
+        $testResponse1->assertRedirect(route('two-factor.recovery-codes'));
+        $testResponse = $this->get(route('two-factor.recovery-codes'), ['Accept' => 'application/json']);
+        $testResponse->assertOk();
+        $content = $testResponse->content();
+        $testResponse = $this->post(route('two-factor.login'), ['recovery_code' => 'fake test']);
+        $testResponse->assertOk();
+        $testResponse = $this->post(route('two-factor.login'), ['recovery_code' => $content[0]]);
+        $testResponse->assertRedirect(url('/home'));
+    }
+    public function test_twoFactorQrCode()
+    {
+        $user = User::factory()->create(['password' => Hash::make('12345678')]);
+        $this->actingAs($user);
+
+        $testResponse = $this->post(url('/user/confirm-password'),['password' => '12345678'], ['Accept' => 'application/json']);
+        $testResponse->assertCreated();
+        $testResponse->assertSessionMissing('asdjfksdfj');
+        $testResponse->assertSessionHas('auth.password_confirmed_at');
+
+        $testResponse1 = $this->post(route('two-factor.enable'), [], ['Referer' => url('/home')]);
+        $testResponse1->assertRedirect(url('/home'));
+
+        $testResponse = $this->get(route('two-factor.qr-code'), ['Accept' => 'application/json']);
         $testResponse->assertOk();
     }
 }

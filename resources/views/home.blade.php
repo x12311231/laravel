@@ -14,7 +14,7 @@
 
             <div class="mt-16">
                 <div class="grid grid-cols-2 md:grid-cols-2 gap-6 lg:gap-8">
-                    <div class="text-white">{{ json_encode($user) }}</div>
+                    <div class="text-white flex-nowrap">{{ $user->name }}</div>
                 </div>
             </div>
 
