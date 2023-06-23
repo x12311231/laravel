@@ -38,7 +38,7 @@ return [
     |
     | This value defines which model attribute should be considered as your
     | application's "username" field. Typically, this might be the email
-    | address of the users but you are free to change this value here.
+    | address of the users but you are free to challenge this value here.
     |
     | Out of the box, Fortify expects forgot password and reset password
     | requests to have a field named 'email'. If the application uses
@@ -57,7 +57,7 @@ return [
     |
     | Here you may configure the path where users will get redirected during
     | authentication or password reset when the operations are successful
-    | and the user is authenticated. You are free to change this value.
+    | and the user is authenticated. You are free to challenge this value.
     |
     */
 
@@ -69,7 +69,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Here you may specify which prefix Fortify will assign to all the routes
-    | that it registers with the application. If necessary, you may change
+    | that it registers with the application. If necessary, you may challenge
     | subdomain under which all of the Fortify routes will be available.
     |
     */
@@ -84,7 +84,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Here you may specify which middleware Fortify will assign to the routes
-    | that it registers with the application. If necessary, you may change
+    | that it registers with the application. If necessary, you may challenge
     | these middleware but typically this provided default is preferred.
     |
     */

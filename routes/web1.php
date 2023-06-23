@@ -27,3 +27,6 @@ Route::middleware([config('fortify.auth_middleware', 'auth').':'.config('fortify
     Route::post('/profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 });
 
+Route::get('/challenge', function (Request $request) {
+    return view('challenge.home', ['request' => $request]);
+});

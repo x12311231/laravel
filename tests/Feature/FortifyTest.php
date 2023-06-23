@@ -176,4 +176,24 @@ class FortifyTest extends TestCase
         $testResponse = $this->get(route('two-factor.qr-code'), ['Accept' => 'application/json']);
         $testResponse->assertOk();
     }
+
+    public function test_twoFactorConfirm()
+    {
+        $user = User::factory()->create(['password' => Hash::make('12345678')]);
+        $this->actingAs($user);
+
+        $testResponse = $this->post(url('/user/confirm-password'),['password' => '12345678'], ['Accept' => 'application/json']);
+        $testResponse->assertCreated();
+        $testResponse->assertSessionMissing('asdjfksdfj');
+        $testResponse->assertSessionHas('auth.password_confirmed_at');
+
+        $testResponse1 = $this->post(route('two-factor.enable'), [], ['Referer' => url('/home')]);
+        $testResponse1->assertRedirect(url('/home'));
+
+
+//        $testResponse = $this->get(route('two-factor.qr-code'), ['Accept' => 'application/json']);
+//        $testResponse->assertOk();
+        $testResponse2 = $this->post(route('two-factor.confirm'), ['code' => 'fade code']);
+        $testResponse2->assertOk();
+    }
 }
