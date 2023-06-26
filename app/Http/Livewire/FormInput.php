@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use Carbon\Carbon;
 use Livewire\Component;
 
 class FormInput extends Component
@@ -14,5 +15,10 @@ class FormInput extends Component
     public function render()
     {
         return view('livewire.form-input');
+    }
+
+    public function mount()
+    {
+        $this->value = Carbon::now()->toString();
     }
 }
