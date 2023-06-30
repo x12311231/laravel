@@ -1,0 +1,12 @@
+GET http://{{host}}/post/1
+Accept: application/json
+
+###
+POST http://{{host}}/livewire/message/post-form
+Content-Type: application/json
+Accept: application/json
+
+{"fingerprint":{"id":null,"name":"post-form","locale":"en","path":"posts/form","method":"GET","v":"acj"},"serverMemo":{"children":[],"errors":[],"htmlHash":"ff151f38","data":{"post":{"title":"aaaaaaa","content":"aaaaaaaaaaaaaaaaaa"}},"dataMeta":{"models":{"post":{"class":"App\\Models\\Post","id":32,"relations":[],"connection":"mysql","collectionClass":null}}},"checksum":"750d6770f92324f02aac379f40ef00b802151db027ac55e6a9cbcd04d61d055e"},"updates":[{"type":"callMethod","payload":{"id":"xobp","method":"save","params":[]}}]}
+
+
+###

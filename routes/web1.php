@@ -11,6 +11,10 @@ Route::get('/users', function () {
     return view('user.index', ['users' => $users->toArray()]);
 });
 
+
+Route::get('/user', \App\Http\Livewire\User::class);
+Route::get('/user/article/{article}', \App\Http\Livewire\User::class);
+
 Route::get('/post/{post}', \App\Http\Livewire\Post\Show::class);
 
 Route::get('/post', \App\Http\Livewire\Post\Index::class);
