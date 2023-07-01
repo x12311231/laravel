@@ -1,1 +1,1 @@
-{"version":1,"defects":[],"times":{"Tests\\Feature\\Livewire\\PostFormTest::the_component_can_render":0.016,"Tests\\Feature\\Livewire\\UserTest::the_component_can_render":0.021}}
+{"version":1,"defects":{"Tests\\Feature\\Livewire\\UserTest::the_component_can_render":8},"times":{"Tests\\Feature\\Livewire\\PostFormTest::the_component_can_render":0.016,"Tests\\Feature\\Livewire\\UserTest::the_component_can_render":0.03,"Tests\\Feature\\Livewire\\UserTest::test_u_a":226.699}}

@@ -13,7 +13,8 @@ Route::get('/users', function () {
 
 
 Route::get('/user', \App\Http\Livewire\User::class);
-Route::get('/user/article/{article}', \App\Http\Livewire\User::class);
+Route::get('/user/article/{article}', \App\Http\Livewire\User::class)->name('u.a');
+Route::get('/user1', \App\Http\Livewire\User1::class);
 
 Route::get('/post/{post}', \App\Http\Livewire\Post\Show::class);
 

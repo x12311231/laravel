@@ -1,6 +1,7 @@
 <x-layout>
 <form wire:submit.prevent="save">
 {{--    <input type="hidden" wire:key="post.id">--}}
+{{--    <input type="text" wire:model="post.id">--}}
     <label>
         title
         <input type="text" wire:model="post.title">

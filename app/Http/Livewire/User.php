@@ -14,11 +14,18 @@ class User extends Component
 
     public $article = [];
 
-//    public function mount(Article $article) {
-//        Log::channel('laravel')
-//            ->debug('mount article :' . json_encode($article));
-//        $this->article = (array)$article;
-//    }
+    public function __construct($id = null)
+    {
+        Log::channel('laravel')
+            ->debug(__CLASS__ . ' ' . __FUNCTION__ . ' article:' . json_encode($this->article));
+        parent::__construct($id);
+    }
+
+    public function mount(Article $article) {
+        Log::channel('laravel')
+            ->debug('mount article :' . json_encode($article));
+        $this->article = (array)$article;
+    }
 
 
 
