@@ -19,10 +19,16 @@
         input, textarea {
             border: #718096 1px solid;
         }
+        .dirty {
+            border: #2563eb 1px solid;
+            background-color: #1f2937;
+            color: white;
+        }
     </style>
 </head>
 <body class="antialiased">
 {{ $slot }}
 @livewireScripts
+
 </body>
 </html>

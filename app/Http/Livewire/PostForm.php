@@ -25,7 +25,10 @@ class PostForm extends Component
 
     public function mount(Post $post)
     {
+//        sort($post);
         $this->post = $post;
+        Log::channel('laravel')
+            ->debug(__CLASS__ . ' ' . __FUNCTION__ . ' post:' . json_encode($post));
         Livewire::listen('PostForm.hydrate', function ($component, $request) {
             Log::channel('laravel')
                 ->debug('component.hydrate' . var_export($component, true) . var_export($request, true));
