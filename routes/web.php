@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/precognition', function () {
+    return 'hello precognition';
+})->middleware([\Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests::class]);
