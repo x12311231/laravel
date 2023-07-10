@@ -3,7 +3,7 @@
 </script>
 
 <template>
-vue1
+index
 </template>
 
 <style scoped>

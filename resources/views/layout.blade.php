@@ -33,6 +33,6 @@
 
             <div id="app"></div>
         </div>
-        @vite(['resources/js/app.js', 'resources/js/App.vue'])
+        @vite(['resources/js/app.js', 'resources/js/views/Index.vue'])
     </body>
 </html>
