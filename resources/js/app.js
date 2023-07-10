@@ -4,6 +4,6 @@ import { createApp } from 'vue';
 import Index from "./views/Index.vue";
 
 console.log('precognition')
-let app = createApp(Index);
+let app = createApp(App);
 app.mount('#app')
 
