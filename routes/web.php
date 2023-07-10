@@ -20,3 +20,5 @@ Route::get('/', function () {
 Route::get('/precognition', function () {
     return 'hello precognition';
 })->middleware([\Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests::class]);
+
+require 'web1.php';
