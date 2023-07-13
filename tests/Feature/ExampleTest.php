@@ -16,4 +16,16 @@ class ExampleTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_event()
+    {
+        $testResponse = $this->get('/event');
+        $testResponse->assertOk();
+    }
+
+    public function test_job()
+    {
+        $testResponse = $this->get('/job');
+        $testResponse->assertOk();
+    }
 }
