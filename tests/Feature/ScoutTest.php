@@ -135,4 +135,30 @@ class ScoutTest extends TestCase
         $count = $documentsResults->count();
         self::assertEquals(0, $count);
     }
+
+    public function test_delete_data_sync_2_search()
+    {
+        User::factory(11)->create([
+        ]);
+        $user = User::firstOrFail();
+        $testResponse = $this->get('/user_delete/' . $user->id);
+        $testResponse->assertOk();
+        sleep(1);
+        $documentsResults = $this->client->index('users')->getDocuments();
+        $count = $documentsResults->count();
+        self::assertEquals(10, $count);
+    }
+
+    public function test_unsearchable()
+    {
+        User::factory(11)->create([
+        ]);
+        $user = User::firstOrFail();
+        $testResponse = $this->get('/unsearchable/' . $user->id);
+        $testResponse->assertOk();
+        sleep(1);
+        $documentsResults = $this->client->index('users')->getDocuments();
+        $count = $documentsResults->count();
+        self::assertEquals(10, $count);
+    }
 }

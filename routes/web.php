@@ -38,3 +38,12 @@ Route::get('/searchable/{user}', function (\App\Models\User $user) {
 Route::get('/noSearchable/{user}', function (\App\Models\User $user) {
     return $user;
 });
+
+Route::get('/user_delete/{user}', function (\App\Models\User $user) {
+    return $user->delete();
+});
+
+Route::get('/unsearchable/{user}', function (\App\Models\User $user) {
+    $user->unsearchable();
+    return $user;
+});

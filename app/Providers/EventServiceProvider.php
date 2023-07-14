@@ -28,7 +28,7 @@ class EventServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Event::listen('*', function (string $eventName, array $data) {
-            $record = false;
+            $record = true;
             $except = [
                 'Illuminate\Log\Events\MessageLogged',
             ];
