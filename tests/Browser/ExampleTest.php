@@ -10,6 +10,7 @@ class ExampleTest extends DuskTestCase
 {
     /**
      * A basic browser test example.
+     * check ufw, sudo ufw status(sudo ufw allow 9000)
      */
     public function testBasicExample(): void
     {
