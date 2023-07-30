@@ -36,8 +36,8 @@ abstract class DuskTestCase extends BaseTestCase
                 '--disable-gpu',
                 '--headless=new',
 //                '--headless',
-                '--no-sandbox',
-                '--disable-dev-shm-usage'
+//                '--no-sandbox',
+//                '--disable-dev-shm-usage'
             ]);
         })->all());
 

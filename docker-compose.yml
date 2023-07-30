@@ -2,11 +2,12 @@ version: '3'
 services:
     laravel.test:
         build:
-            context: ./vendor/laravel/sail/runtimes/8.2
-#            context: ./docker-compose/laravel.test
+#            context: ./vendor/laravel/sail/runtimes/8.2
+            context: ./docker-compose/laravel.test
             dockerfile: Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
+#        image: sail-8.2/app
         image: sail-8.2/app:plus
 #        user: "1000"
 #        privileged: false
@@ -22,9 +23,11 @@ services:
             XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
             IGNITION_LOCAL_SITES_PATH: '${PWD}'
         volumes:
-            - '.:/var/www/html'
+#            - '.:/var/www/html'
+            - '.:/Users/xiehq01/project/laravel'
         networks:
             - sail
+        working_dir: /Users/xiehq01/project/laravel
         depends_on:
             - selenium
             - mysql
