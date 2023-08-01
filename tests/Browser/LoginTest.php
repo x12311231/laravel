@@ -9,8 +9,8 @@ use Tests\DuskTestCase;
 
 class LoginTest extends DuskTestCase
 {
-//    use DatabaseMigrations;
-//    use DatabaseTruncation;
+    use DatabaseMigrations;
+    use DatabaseTruncation;
 
     /**
      * A basic browser test example.
