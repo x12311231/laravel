@@ -95,7 +95,7 @@
     docker-compose up -d
 @endtask
 
-@task('setup-mycms', ['on' => 'web4'])
+@task('setup-mycms')
     cd /website/dnmp
     cd www
     git clone https://gitee.com/qq386654667/mycms.git
