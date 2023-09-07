@@ -95,11 +95,14 @@
     docker-compose up -d
 @endtask
 
-@task('setup-mycms')
+@task('setup-mycms', ['on' => 'web4'])
     cd /website/dnmp
     cd www
     git clone https://gitee.com/qq386654667/mycms.git
+    chmod -R 777 ../www/mycms/storage
+    chmod -R 777 ../www/mycms/bootstrap/cache
+    cd ../www/mycms
     cd ../services/nginx/conf.d
-    cp laravel.conf mycms.conf
+    cp laravel.conf.demo mycms.conf
     sed -i 's/laravel/mycms/g' mycms.conf
 @endtask
