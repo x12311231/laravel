@@ -1,4 +1,4 @@
-@servers(['web' => 'root@192.168.0.19', 'web1' => 'root@117.72.10.250', 'web2' => 'root@45.32.33.65', 'web3' => 'docker1@192.168.0.19', 'web4' => 'root@202.182.116.24'])
+@servers(['tencent1' => 'root@123.207.51.128', 'web' => 'root@192.168.0.19', 'web1' => 'root@117.72.10.250', 'web2' => 'root@45.32.33.65', 'web3' => 'docker1@192.168.0.19', 'web4' => 'root@202.182.116.24'])
 
 @task('deploy')
     cd /tmp
@@ -7,14 +7,14 @@
     echo hello > hello
 @endtask
 
-@story('setup', ['parallel' => true, 'on' => ['web4']])
+@story('setup', ['parallel' => true, 'on' => ['tencent1']])
     timezone
     setup-tools
     remove-docker
     setup-docker
     docker-registry
     setup-dnmp
-    setup-mycms
+    setup-ModStartCMS
 @endstory
 
 @story('reinstall-docker', ['parallel' => true, 'on' => ['web4']])
@@ -101,8 +101,22 @@
     git clone https://gitee.com/qq386654667/mycms.git
     chmod -R 777 ../www/mycms/storage
     chmod -R 777 ../www/mycms/bootstrap/cache
-    cd ../www/mycms
     cd ../services/nginx/conf.d
     cp laravel.conf.demo mycms.conf
     sed -i 's/laravel/mycms/g' mycms.conf
+@endtask
+
+@task('setup-ModStartCMS', ['on' => 'tencent1'])
+    cd /website/dnmp
+    cd www
+    git clone https://gitee.com/xhq192/ModStartCMS.git modstartcms
+    cd modstartcms
+    git checkout 7.2.0
+    chmod -R 777 ../modstartcms/storage
+    chmod -R 777 ../modstartcms/bootstrap/cache
+    chmod 777 ../modstartcms/bootstrap
+    chmod 777 ../modstartcms/public
+    cd ../../services/nginx/conf.d
+    cp laravel.conf.demo modstartcms.conf
+    sed -i 's/laravel/modstartcms/g' modstartcms.conf
 @endtask
