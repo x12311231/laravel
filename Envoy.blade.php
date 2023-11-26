@@ -7,7 +7,7 @@
     echo hello > hello
 @endtask
 
-@story('setup', ['parallel' => true])
+@story('setup', ['parallel' => true, 'on' => ['web1'])
     timezone
     server-update
     setup-tools
