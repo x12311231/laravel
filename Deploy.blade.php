@@ -42,6 +42,7 @@
 
     docker pull 123.207.51.128:4433/train/training_admin:latest
     docker pull 123.207.51.128:4433/train/training:latest
+    /usr/local/bin/docker-compose build
     /usr/local/bin/docker-compose up -d
     EOF
     chmod +x /tmp/deploy.sh
