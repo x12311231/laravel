@@ -28,7 +28,7 @@ EOF
 @endtask
 
 @task('update-training-admin-pkg')
-    cat <<EOF > /tmp/update-pkg.sh
+    cat <<EOF > /tmp/update-training-admin-pkg.sh
     #!/bin/bash
     GIT_REMOTE='git@123.207.51.128:/home/git/trainingAdmin.git'
     GIT_TAG='v19.0.0'
@@ -41,8 +41,26 @@ EOF
     docker-compose build trainingAdmin && \
     docker-compose push trainingAdmin
     EOF
-    chmod +x /tmp/update-pkg.sh
-    sudo /tmp/update-pkg.sh
+    chmod +x /tmp/update-training-admin-pkg.sh
+    sudo /tmp/update-training-admin-pkg.sh
+@endtask
+
+@task('update-training-pkg')
+    cat <<EOF > /tmp/update-training-pkg.sh
+    #!/bin/bash
+    GIT_REMOTE='git@123.207.51.128:/home/git/training.git'
+    GIT_TAG='v19.0.0'
+    BUILD_DIR='/home/git/training'
+    OUTPUT_DIR='/home/git/training/deploy/training/outputs/'
+    [ ! -f $BUILD_DIR/.git ] && git init && git remote add origin $GIT_REMOTE
+    git pull origin main && \
+    git archive $GIT_TAG --format=tar.gz -o ${OUTPUT_DIR}/training.${GIT_TAG}.tar.gz && \
+    echo "archive success" && \
+    docker-compose build training && \
+    docker-compose push training
+    EOF
+    chmod +x /tmp/update-training-pkg.sh
+    sudo /tmp/update-training-pkg.sh
 @endtask
 
 
