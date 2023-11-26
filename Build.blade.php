@@ -40,16 +40,17 @@ EOF
     GIT_TAG={{ $git_tag }}
     BUILD_DIR='/build/trainingAdmin'
     OUTPUT_DIR='/build/trainingAdmin/deploy/trainingAdmin/outputs'
+    docker login 123.207.51.128:4433
 
     mkdir -p \${BUILD_DIR} && \
     mkdir -p \${OUTPUT_DIR} && \
     cd \${BUILD_DIR} && \
     [ ! -f \${BUILD_DIR}/.git ] && git init && git remote add origin \${GIT_REMOTE}
-    git pull origin main && \
-    git archive \$GIT_TAG --format=tar.gz -o \${OUTPUT_DIR}/trainingAdmin.\${GIT_TAG}.tar.gz && \
+    git pull origin main --tags && \
+    git archive {{ $git_tag }} --format=tar.gz -o \${OUTPUT_DIR}/trainingAdmin.{{ $git_tag }}.tar.gz && \
     echo "archive success" && \
-    docker-compose build trainingAdmin && \
-    docker-compose push trainingAdmin
+    /usr/local/bin/docker-compose build trainingAdmin && \
+    /usr/local/bin/docker-compose push trainingAdmin
     EOF
     chmod +x /tmp/update-training-admin-pkg.sh
     sudo /tmp/update-training-admin-pkg.sh
@@ -66,16 +67,17 @@ EOF
     GIT_TAG={{ $git_tag }}
     BUILD_DIR='/build/training'
     OUTPUT_DIR='/build/training/deploy/training/outputs'
+    docker login 123.207.51.128:4433
 
     mkdir -p \$BUILD_DIR && \
     mkdir -p \$OUTPUT_DIR  && \
     cd \$BUILD_DIR && \
     [ ! -f \$BUILD_DIR/.git ] && git init && git remote add origin \$GIT_REMOTE
-    git pull origin main && \
+    git pull origin main --tags && \
     git archive \$GIT_TAG --format=tar.gz -o \${OUTPUT_DIR}/training.\${GIT_TAG}.tar.gz && \
     echo "archive success" && \
-    docker-compose build training && \
-    docker-compose push training
+    /usr/local/bin/docker-compose build training && \
+    /usr/local/bin/docker-compose push training
     EOF
     chmod +x /tmp/update-training-pkg.sh
     sudo /tmp/update-training-pkg.sh
