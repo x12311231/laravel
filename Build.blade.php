@@ -1,4 +1,4 @@
-@servers(['web' => 'root@192.168.0.19', 'web1' => 'root@192.168.0.18'])
+@servers(['web1' => 'root@123.207.51.128']])
 
 @story('build', ['parallel' => true, 'on' => ['web1']])
     docker-setting-insecure-registry
@@ -27,15 +27,20 @@
         fi
     fi
 EOF
+    sudo systemctl restart docker
 @endtask
 
 @task('update-training-admin-pkg')
+    @if (!$git_tag)
+        echo "please input git tag"
+        exit 1
+    @endif
     cat <<EOF > /tmp/update-training-admin-pkg.sh
     #!/bin/bash
     GIT_REMOTE='git@123.207.51.128:/home/git/trainingAdmin.git'
     GIT_TAG='v19.0.0'
-    BUILD_DIR='/home/git/trainingAdmin'
-    OUTPUT_DIR='/home/git/trainingAdmin/deploy/trainingAdmin/outputs/'
+    BUILD_DIR='/build/trainingAdmin'
+    OUTPUT_DIR='/build/trainingAdmin/deploy/trainingAdmin/outputs/'
     [ ! -f $BUILD_DIR/.git ] && git init && git remote add origin $GIT_REMOTE
     git pull origin main && \
     git archive $GIT_TAG --format=tar.gz -o ${OUTPUT_DIR}/trainingAdmin.${GIT_TAG}.tar.gz && \
@@ -48,12 +53,16 @@ EOF
 @endtask
 
 @task('update-training-pkg')
+    @if (!$git_tag)
+        echo "please input git tag"
+        exit 1
+    @endif
     cat <<EOF > /tmp/update-training-pkg.sh
     #!/bin/bash
     GIT_REMOTE='git@123.207.51.128:/home/git/training.git'
     GIT_TAG='v19.0.0'
-    BUILD_DIR='/home/git/training'
-    OUTPUT_DIR='/home/git/training/deploy/training/outputs/'
+    BUILD_DIR='/build/training'
+    OUTPUT_DIR='/build/training/deploy/training/outputs/'
     [ ! -f $BUILD_DIR/.git ] && git init && git remote add origin $GIT_REMOTE
     git pull origin main && \
     git archive $GIT_TAG --format=tar.gz -o ${OUTPUT_DIR}/training.${GIT_TAG}.tar.gz && \
