@@ -1,7 +1,6 @@
-@servers(['web1' => 'root@123.207.51.128']])
+@servers(['web1' => 'root@123.207.51.128'])
 
 @story('build', ['parallel' => true, 'on' => ['web1']])
-    docker-setting-insecure-registry
     update-training-admin-pkg
     update-training-pkg
 @endstory
@@ -14,11 +13,11 @@
     INSECURE_REGISTRIES="'insecure-registries': [\"${INSECURE_IP}\"]"
 
     if [ ! -f /etc/docker/daemon.json ];then
-        cat <<EOF > /etc/docker/daemon.json
+        cat <<EOFF > /etc/docker/daemon.json
         {
         ${INSECURE_REGISTRIES}
         }
-    EOF
+    EOFF
     else
         ip_num=`grep insecure-registries /etc/docker/daemon.json | grep ${INSECURE_IP} | wc -l`
         if [ "${ip_num}" == '0' ];then
@@ -38,12 +37,16 @@ EOF
     cat <<EOF > /tmp/update-training-admin-pkg.sh
     #!/bin/bash
     GIT_REMOTE='git@123.207.51.128:/home/git/trainingAdmin.git'
-    GIT_TAG='v19.0.0'
+    GIT_TAG={{ $git_tag }}
     BUILD_DIR='/build/trainingAdmin'
-    OUTPUT_DIR='/build/trainingAdmin/deploy/trainingAdmin/outputs/'
-    [ ! -f $BUILD_DIR/.git ] && git init && git remote add origin $GIT_REMOTE
+    OUTPUT_DIR='/build/trainingAdmin/deploy/trainingAdmin/outputs'
+
+    mkdir -p \${BUILD_DIR} && \
+    mkdir -p \${OUTPUT_DIR} && \
+    cd \${BUILD_DIR} && \
+    [ ! -f \${BUILD_DIR}/.git ] && git init && git remote add origin \${GIT_REMOTE}
     git pull origin main && \
-    git archive $GIT_TAG --format=tar.gz -o ${OUTPUT_DIR}/trainingAdmin.${GIT_TAG}.tar.gz && \
+    git archive \$GIT_TAG --format=tar.gz -o \${OUTPUT_DIR}/trainingAdmin.\${GIT_TAG}.tar.gz && \
     echo "archive success" && \
     docker-compose build trainingAdmin && \
     docker-compose push trainingAdmin
@@ -60,12 +63,16 @@ EOF
     cat <<EOF > /tmp/update-training-pkg.sh
     #!/bin/bash
     GIT_REMOTE='git@123.207.51.128:/home/git/training.git'
-    GIT_TAG='v19.0.0'
+    GIT_TAG={{ $git_tag }}
     BUILD_DIR='/build/training'
-    OUTPUT_DIR='/build/training/deploy/training/outputs/'
-    [ ! -f $BUILD_DIR/.git ] && git init && git remote add origin $GIT_REMOTE
+    OUTPUT_DIR='/build/training/deploy/training/outputs'
+
+    mkdir -p \$BUILD_DIR && \
+    mkdir -p \$OUTPUT_DIR  && \
+    cd \$BUILD_DIR && \
+    [ ! -f \$BUILD_DIR/.git ] && git init && git remote add origin \$GIT_REMOTE
     git pull origin main && \
-    git archive $GIT_TAG --format=tar.gz -o ${OUTPUT_DIR}/training.${GIT_TAG}.tar.gz && \
+    git archive \$GIT_TAG --format=tar.gz -o \${OUTPUT_DIR}/training.\${GIT_TAG}.tar.gz && \
     echo "archive success" && \
     docker-compose build training && \
     docker-compose push training
