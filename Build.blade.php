@@ -47,6 +47,8 @@ EOF
     cd \${BUILD_DIR} && \
     [ ! -f \${BUILD_DIR}/.git ] && git init && git remote add origin \${GIT_REMOTE}
     git pull origin main --tags && \
+    sed -i 's/PKG_VERSION/{{ $git_tag }}/g' \${OUTPUT_DIR}/../Dockerfile && \
+    sed -i 's/DOCKER_IMG_VERSION/{{ $git_tag }}/g' \${BUILD_DIR}/docker-compose.yml && \
     git archive {{ $git_tag }} --format=tar.gz -o \${OUTPUT_DIR}/trainingAdmin.{{ $git_tag }}.tar.gz && \
     echo "archive success" && \
     /usr/local/bin/docker-compose build trainingAdmin && \
@@ -74,6 +76,8 @@ EOF
     cd \$BUILD_DIR && \
     [ ! -f \$BUILD_DIR/.git ] && git init && git remote add origin \$GIT_REMOTE
     git pull origin main --tags && \
+    sed -i 's/PKG_VERSION/{{ $git_tag }}/g' \${OUTPUT_DIR}/../Dockerfile && \
+    sed -i 's/DOCKER_IMG_VERSION/{{ $git_tag }}/g' \${BUILD_DIR}/docker-compose.yml && \
     git archive \$GIT_TAG --format=tar.gz -o \${OUTPUT_DIR}/training.\${GIT_TAG}.tar.gz && \
     echo "archive success" && \
     /usr/local/bin/docker-compose build training && \
