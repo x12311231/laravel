@@ -15,6 +15,10 @@
 
 
 @task('pull-docker-deploy')
+    @if (!$git_tag)
+        echo "please input git tag"
+        exit 1
+    @endif
     cat <<EOF > /tmp/deploy.sh
     #!/bin/bash
     docker login 123.207.51.128:4433 && \
@@ -28,6 +32,9 @@
     tar -zxvf /deploy/deploy.tar.gz -C /deploy/
     rm -rf /deploy/deploy.tar.gz
     cd /deploy/
+    sed -i "s/DOCKER_TAG/{{ $git_tag }}/g" docker-compose.yml
+    sel -i "s/DOCKER_TAG/{{ $git_tag }}/g" app/Dockerfile
+    sel -i "s/DOCKER_TAG/{{ $git_tag }}/g" admin/Dockerfile
     docker stop deploy
     docker rm -f deploy
 
@@ -40,8 +47,8 @@
     docker stop config345345324
     docker rm -f config345345324
 
-    docker pull 123.207.51.128:4433/train/training_admin:latest
-    docker pull 123.207.51.128:4433/train/training:latest
+    docker pull 123.207.51.128:4433/train/training_admin:{{ $git_tag }}
+    docker pull 123.207.51.128:4433/train/training:{{ $git_tag }}
     /usr/local/bin/docker-compose build
     /usr/local/bin/docker-compose up -d
     EOF
