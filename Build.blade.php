@@ -53,6 +53,7 @@ EOF
     echo "archive success" && \
     /usr/local/bin/docker-compose build trainingAdmin && \
     /usr/local/bin/docker-compose push trainingAdmin
+    git stash
     EOF
     chmod +x /tmp/update-training-admin-pkg.sh
     sudo /tmp/update-training-admin-pkg.sh
@@ -82,6 +83,7 @@ EOF
     echo "archive success" && \
     /usr/local/bin/docker-compose build training && \
     /usr/local/bin/docker-compose push training
+    git stash
     EOF
     chmod +x /tmp/update-training-pkg.sh
     sudo /tmp/update-training-pkg.sh
